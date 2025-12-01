@@ -2,34 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Glory AI Pro Studio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glory AI Pro – Studio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
   <style>
     :root {
-      --bg: #050814;
-      --panel: #0c1020;
-      --accent: #4f8bff;
-      --accent-soft: rgba(79, 139, 255, 0.1);
-      --text: #f9fbff;
-      --muted: #9ca5c4;
-      --danger: #ff5c7a;
-      --success: #4ade80;
-      --border: #1e2438;
+      --bg: #050712;
+      --bg-soft: #0b1020;
+      --bg-softer: #101627;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --danger: #fb7185;
       --radius-lg: 18px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.8);
     }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
     }
+
     body {
-      background: radial-gradient(circle at top, #101533 0, #050814 55%);
-      color: var(--text);
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      background: radial-gradient(circle at top, #0b1020 0, #020617 55%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 18px 16px 40px;
     }
 
     /* NAVBAR */
@@ -37,590 +58,813 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(22px);
-      background: linear-gradient(
-        to bottom,
-        rgba(5, 8, 20, 0.9),
-        rgba(5, 8, 20, 0.6)
-      );
-      position: sticky;
-      top: 0;
-      z-index: 20;
+      gap: 16px;
+      margin-bottom: 24px;
     }
+
     .nav-left {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    .logo {
+
+    .logo-mark {
       width: 32px;
       height: 32px;
-      border-radius: 11px;
-      background: radial-gradient(circle at 30% 0, #ffe45e, #ff7a3c);
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #facc15, #fb923c);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #050814;
-      font-weight: 800;
-      font-size: 20px;
-      box-shadow: 0 0 18px rgba(255, 178, 88, 0.65);
-    }
-    .brand-title {
-      font-size: 18px;
+      color: #020617;
       font-weight: 700;
+      font-size: 18px;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8),
+        0 16px 30px rgba(15, 23, 42, 0.9);
     }
-    .brand-sub {
+
+    .logo-text-main {
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .logo-text-main span {
+      color: var(--accent);
+    }
+
+    .logo-sub {
       font-size: 11px;
-      color: var(--muted);
+      color: var(--text-muted);
     }
+
+    .tag-pill {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      background: rgba(15, 23, 42, 0.85);
+      color: #bae6fd;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .nav-links a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+
+    .nav-links a:hover {
+      border-color: rgba(148, 163, 184, 0.4);
+      color: var(--text-main);
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .nav-links .active {
+      border-color: rgba(56, 189, 248, 0.65);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e0f2fe;
+    }
+
     .nav-right {
       display: flex;
       align-items: center;
       gap: 10px;
+      font-size: 12px;
     }
-    .nav-link {
-      font-size: 13px;
-      color: var(--muted);
-      text-decoration: none;
-    }
-    .nav-link:hover {
-      color: var(--text);
-    }
-    .nav-pill {
-      border-radius: 999px;
-      border: 1px solid var(--border);
+
+    .pill {
       padding: 4px 10px;
-      font-size: 11px;
-      color: var(--muted);
-    }
-    .nav-btn {
-      background: var(--accent);
-      color: #050814;
       border-radius: 999px;
-      border: none;
-      padding: 8px 14px;
-      font-size: 13px;
-      font-weight: 600;
+      border: 1px solid rgba(34, 197, 94, 0.6);
+      color: #bbf7d0;
+      background: rgba(5, 46, 22, 0.85);
       display: flex;
       align-items: center;
       gap: 6px;
-      text-decoration: none;
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.18);
+    }
+
+    .nav-cta {
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #0b1120;
+      border: none;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 12px 24px rgba(8, 47, 73, 0.8);
+    }
+
+    .nav-cta span {
+      font-size: 14px;
     }
 
     /* LAYOUT */
-    .page {
-      flex: 1;
-      padding: 14px 12px 24px;
-      max-width: 1200px;
-      margin: 0 auto;
+    .studio-layout {
       display: grid;
-      grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
-      gap: 14px;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 2.4fr);
+      gap: 18px;
+      align-items: stretch;
     }
-    @media (max-width: 768px) {
-      .page {
+
+    @media (max-width: 880px) {
+      .studio-layout {
         grid-template-columns: minmax(0, 1fr);
       }
+
       .nav {
         flex-wrap: wrap;
-        gap: 8px;
+        align-items: flex-start;
+      }
+
+      .nav-right {
+        width: 100%;
+        justify-content: flex-end;
       }
     }
 
     .panel {
-      background: radial-gradient(circle at 0 0, #171d3a 0, #050814 60%);
+      background: linear-gradient(135deg, #020617, #020617);
       border-radius: var(--radius-lg);
-      border: 1px solid var(--border);
-      padding: 14px;
-      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(15, 23, 42, 0.9);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 16px 14px;
+      position: relative;
+      overflow: hidden;
     }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 1;
+    }
+
     .panel-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
+      gap: 10px;
     }
+
     .panel-title {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
     }
+
     .panel-sub {
       font-size: 11px;
-      color: var(--muted);
+      color: var(--text-muted);
     }
 
-    /* AUTH + CREDITS */
-    .auth-group {
+    .badge-row {
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 10px;
-    }
-    label {
-      font-size: 12px;
-      color: var(--muted);
-    }
-    input,
-    textarea,
-    select {
-      background: rgba(8, 12, 32, 0.9);
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      padding: 8px 10px;
-      font-size: 13px;
-      color: var(--text);
-      width: 100%;
-    }
-    textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-    input:focus,
-    textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(79, 139, 255, 0.5);
-    }
-    .btn {
-      border-radius: 999px;
-      border: none;
-      padding: 8px 14px;
-      font-size: 13px;
-      font-weight: 600;
-      display: inline-flex;
       align-items: center;
-      justify-content: center;
+      flex-wrap: wrap;
       gap: 6px;
-      cursor: pointer;
-    }
-    .btn-primary {
-      background: linear-gradient(90deg, #4f8bff, #7a5cff);
-      color: #fff;
-    }
-    .btn-ghost {
-      background: rgba(13, 18, 40, 0.9);
-      color: var(--muted);
-      border: 1px solid var(--border);
-    }
-    .btn-block {
-      width: 100%;
-      margin-top: 8px;
-    }
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .credits-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 500;
-    }
-    .credits-pill span {
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .hint {
-      font-size: 11px;
-      color: var(--muted);
+      font-size: 10px;
       margin-top: 6px;
     }
-    .hint strong {
-      color: #c5d3ff;
+
+    .badge {
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.9);
     }
 
-    /* STUDIO MAIN */
-    .studio-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
-      gap: 14px;
+    .badge-strong {
+      border-color: rgba(56, 189, 248, 0.7);
+      color: #e0f2fe;
+      background: rgba(8, 47, 73, 0.9);
     }
-    @media (max-width: 768px) {
-      .studio-grid {
+
+    /* FORM */
+    .form-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 11px;
+    }
+
+    .field-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .field-label {
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-size: 10px;
+      color: #a5b4fc;
+    }
+
+    .field-hint {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    textarea,
+    select,
+    input[type="number"],
+    input[type="range"] {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 10px;
+      border: 1px solid rgba(30, 64, 175, 0.9);
+      color: var(--text-main);
+      font-size: 12px;
+      padding: 9px 10px;
+      outline: none;
+      width: 100%;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    textarea:focus,
+    select:focus,
+    input[type="number"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.2fr);
+      gap: 10px;
+    }
+
+    .row-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .row-2,
+      .row-3 {
         grid-template-columns: minmax(0, 1fr);
       }
     }
-    .badge-row {
+
+    .range-row {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 10px;
+      align-items: center;
+      gap: 8px;
     }
-    .badge {
+
+    .range-row input[type="range"] {
+      flex: 1;
+      padding: 0;
+      background: transparent;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      padding: 4px 8px;
+      border: none;
+      accent-color: var(--accent);
+    }
+
+    .range-value {
       font-size: 11px;
-      color: var(--muted);
+      color: #e5e7eb;
+      min-width: 46px;
+      text-align: right;
     }
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--success);
-      box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
-    }
-    .studio-title {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .studio-sub {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 10px;
-    }
-    .field-row {
+
+    .pill-row {
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-    .options-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-    .chip {
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      padding: 5px 10px;
-      font-size: 11px;
-      color: var(--muted);
-    }
-    .chip.active {
-      border-color: var(--accent);
-      background: var(--accent-soft);
-      color: var(--accent);
-    }
-    .status {
-      font-size: 11px;
-      color: var(--muted);
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
       margin-top: 8px;
+      font-size: 10px;
+      color: var(--text-muted);
     }
-    .status.ok {
-      color: var(--success);
+
+    .pill-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.4);
     }
-    .status.err {
-      color: var(--danger);
+
+    .generate-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-generate {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #38bdf8, #22c55e);
+      color: #020617;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 18px 32px rgba(8, 47, 73, 0.9);
+    }
+
+    .btn-generate span {
+      font-size: 18px;
+    }
+
+    .generate-note {
+      font-size: 10px;
+      color: var(--text-muted);
     }
 
     /* PREVIEW */
-    .preview-box {
-      border-radius: 16px;
-      border: 1px dashed rgba(121, 130, 170, 0.7);
-      padding: 12px;
-      background: radial-gradient(circle at top, #222a4d 0, #050814 55%);
-      min-height: 170px;
+    .preview-shell {
+      background: radial-gradient(circle at top, #020617, #020617 40%, #020617 100%);
+      border-radius: 14px;
+      border: 1px solid rgba(15, 23, 42, 0.95);
+      padding: 10px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+      gap: 10px;
+      height: 100%;
     }
-    .preview-img {
-      width: 130px;
-      height: 90px;
-      border-radius: 12px;
-      background: conic-gradient(
-          from 220deg,
-          rgba(79, 139, 255, 0.08),
-          rgba(255, 118, 99, 0.26),
-          rgba(79, 139, 255, 0.28),
-          rgba(169, 92, 255, 0.24),
-          rgba(79, 139, 255, 0.08)
-        ),
-        radial-gradient(circle at 0 0, #151b36, #050814);
-      border: 1px solid rgba(120, 165, 255, 0.55);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+
+    .preview-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .preview-top-left {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .chip {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .chip-strong {
+      border-color: rgba(56, 189, 248, 0.8);
+      color: #e0f2fe;
+    }
+
+    .preview-canvas {
+      flex: 1;
+      border-radius: 10px;
+      background: radial-gradient(circle at top, #0b1120, #020617 60%);
+      border: 1px dashed rgba(51, 65, 85, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 260px;
       position: relative;
       overflow: hidden;
     }
-    .preview-img::after {
-      content: "";
-      position: absolute;
-      inset: 18px;
-      border-radius: 10px;
-      border: 1px solid rgba(13, 19, 41, 0.8);
-      background: radial-gradient(circle at 20% 0, #ffffff1c, #0000);
-    }
-    .preview-label {
-      font-size: 12px;
-      color: var(--muted);
-    }
-    .preview-note {
-      font-size: 11px;
-      color: var(--muted);
+
+    .preview-empty {
+      text-align: center;
       max-width: 260px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .preview-empty h2 {
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: #e5e7eb;
+    }
+
+    .preview-empty p span {
+      color: #e0f2fe;
+    }
+
+    .preview-status {
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: var(--text-muted);
+      gap: 8px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(30, 64, 175, 0.5);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      position: absolute;
+      inset: 0;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #22c55e, #38bdf8);
+      transition: width 0.35s ease-out;
     }
   </style>
 </head>
 <body>
-  <!-- NAVBAR -->
-  <header class="nav">
-    <div class="nav-left">
-      <div class="logo">⚡</div>
-      <div>
-        <div class="brand-title">Glory AI Pro</div>
-        <div class="brand-sub">SD3 Studio · Demo frontend</div>
-      </div>
-    </div>
-    <div class="nav-right">
-      <span class="nav-pill">Demo only · No real GPU yet</span>
-      <a class="nav-link" href="https://gloryaipro.netlify.app" target="_self">
-        Landing
-      </a>
-      <a class="nav-btn" href="app.html">
-        Studio
-        <span>▶</span>
-      </a>
-    </div>
-  </header>
-
-  <!-- MAIN PAGE -->
-  <main class="page">
-    <!-- LEFT: LOGIN + CREDITS -->
-    <section class="panel">
-      <div class="panel-header">
+  <div class="page">
+    <!-- NAV -->
+    <header class="nav">
+      <div class="nav-left">
+        <div class="logo-mark">⚡</div>
         <div>
-          <div class="panel-title">Account & Credits</div>
-          <div class="panel-sub">
-            Ye sirf demo login hai, data tumhare browser me hi rahega.
-          </div>
+          <div class="logo-text-main">Glory <span>AI Pro</span></div>
+          <div class="logo-sub">Image & poster generator studio</div>
         </div>
+        <span class="tag-pill">Studio</span>
       </div>
 
-      <div id="auth-anon">
-        <div class="auth-group">
-          <label for="name">Display name</label>
-          <input id="name" placeholder="Jaise: Gaurav, Mona..." />
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="app.html" class="active">Studio</a>
+        <a href="#!" aria-disabled="true">Pricing (soon)</a>
+        <a href="#!" aria-disabled="true">Account (soon)</a>
+      </nav>
+
+      <div class="nav-right">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          Live demo
         </div>
-        <button class="btn btn-primary btn-block" id="btn-login">
-          Continue to Glory Studio
-        </button>
-        <p class="hint">
-          <strong>Note:</strong> Abhi koi real password / database nahi hai. Ye
-          sirf prototype hai jaise Figma ka fake login.
-        </p>
+        <a href="index.html" class="nav-cta">
+          <span>←</span> Back to site
+        </a>
       </div>
+    </header>
 
-      <div id="auth-user" style="display:none;">
-        <p class="panel-title" id="user-greet"></p>
-        <p class="panel-sub" style="margin-top:4px;">
-          Ye prototype version hai. Real users + payments baad me backend se
-          connect karenge.
-        </p>
+    <!-- MAIN STUDIO LAYOUT -->
+    <main class="studio-layout">
+      <!-- LEFT: PROMPT PANEL -->
+      <section class="panel">
+        <div class="panel-inner">
+          <header class="panel-header">
+            <div>
+              <div class="panel-title">Prompt & settings</div>
+              <div class="panel-sub">
+                Describe your scene in natural English. No brand names, no real people.
+              </div>
+            </div>
+          </header>
 
-        <div style="margin-top:10px; display:flex; gap:8px; align-items:center;">
-          <div class="credits-pill">
-            Credits
-            <span id="credits-count">10</span>
-          </div>
-          <button class="btn btn-ghost" id="btn-logout">Log out</button>
-        </div>
-
-        <p class="hint">
-          Har baar <strong>Generate</strong> dabane par 1 credit kam hoga.
-          Browser clear karoge to credits reset ho jayenge.
-        </p>
-      </div>
-    </section>
-
-    <!-- RIGHT: STUDIO -->
-    <section class="panel">
-      <div class="panel-header">
-        <div>
-          <div class="panel-title">Glory Studio · SD3 Stock Mode</div>
-          <div class="panel-sub">
-            Prompt likho, aspect ratio choose karo · Real image backend baad me
-            connect karenge.
-          </div>
-        </div>
-      </div>
-
-      <div class="studio-grid">
-        <!-- LEFT side: Controls -->
-        <div>
           <div class="badge-row">
-            <div class="badge">
-              <span class="badge-dot"></span> Frontend only
+            <span class="badge-strong">Image mode</span>
+            <span class="badge">Safe for commercial use*</span>
+            <span class="badge">Connect your own model later</span>
+          </div>
+
+          <form id="studio-form" class="form-grid">
+            <!-- PROMPT -->
+            <div class="field-group">
+              <div class="field-label-row">
+                <label class="field-label">Main prompt</label>
+                <span class="field-hint">Tip: subject + style + lighting + mood</span>
+              </div>
+              <textarea
+                id="prompt"
+                placeholder="Example: Futuristic cyber city skyline at night, cinematic, volumetric light, ultra-detailed, 4K."
+                required
+              ></textarea>
             </div>
-            <div class="badge">Safe for commercial prompts</div>
-          </div>
 
-          <h2 class="studio-title">Prompt (English best)</h2>
-          <p class="studio-sub">
-            Light, mood &amp; camera angle describe karo. Brand logos, real
-            people, text-heavy content avoid karo.
-          </p>
+            <!-- STYLE / RATIO -->
+            <div class="row-2">
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label class="field-label">Style</label>
+                  <span class="field-hint">Choose overall look</span>
+                </div>
+                <select id="style">
+                  <option value="general">General / mixed</option>
+                  <option value="photo">Photo – realistic</option>
+                  <option value="illustration">Illustration – clean</option>
+                  <option value="3d">3D render</option>
+                  <option value="anime">Anime / stylized</option>
+                  <option value="poster">Bold poster art</option>
+                </select>
+              </div>
 
-          <div class="field-row">
-            <label for="prompt">Describe your image</label>
-            <textarea
-              id="prompt"
-              placeholder="Futuristic cyber security shield with glowing blue circuits, dark background, editorial lighting"
-            ></textarea>
-          </div>
-
-          <div class="field-row">
-            <label>Aspect ratio</label>
-            <div class="options-row" id="ratio-row">
-              <button class="chip active" data-ratio="1:1">1:1 square</button>
-              <button class="chip" data-ratio="3:4">3:4 poster</button>
-              <button class="chip" data-ratio="16:9">16:9 wide</button>
-              <button class="chip" data-ratio="9:16">9:16 vertical</button>
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label class="field-label">Aspect ratio</label>
+                  <span class="field-hint">Common formats</span>
+                </div>
+                <select id="ratio">
+                  <option value="1:1">1:1 – Square</option>
+                  <option value="3:4">3:4 – Portrait</option>
+                  <option value="4:5">4:5 – Portrait</option>
+                  <option value="16:9">16:9 – Wide</option>
+                  <option value="9:16">9:16 – Vertical</option>
+                  <option value="2:1">2:1 – Banner</option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div class="field-row">
-            <label>Mode</label>
-            <div class="options-row" id="mode-row">
-              <button class="chip active" data-mode="stock">
-                Stock (no text)
+            <!-- SIZE / STEPS / CFG -->
+            <div class="row-3">
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label class="field-label">Resolution</label>
+                  <span class="field-hint">Pixels (long edge)</span>
+                </div>
+                <input
+                  type="number"
+                  id="size"
+                  value="1024"
+                  min="512"
+                  max="2048"
+                  step="64"
+                />
+              </div>
+
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label class="field-label">Steps</label>
+                  <span class="field-hint">Detail level</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="steps" min="20" max="50" value="28" />
+                  <span class="range-value" id="steps-value">28</span>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label class="field-label">Guidance</label>
+                  <span class="field-hint">Prompt strength</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="cfg" min="1" max="12" step="0.5" value="7" />
+                  <span class="range-value" id="cfg-value">7.0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SEED / BATCH -->
+            <div class="row-2">
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label class="field-label">Random seed</label>
+                  <span class="field-hint">Keep -1 for random each time</span>
+                </div>
+                <input type="number" id="seed" value="-1" />
+              </div>
+
+              <div class="field-group">
+                <div class="field-label-row">
+                  <label class="field-label">Images per prompt</label>
+                  <span class="field-hint">Batch</span>
+                </div>
+                <input type="number" id="batch" value="1" min="1" max="4" />
+              </div>
+            </div>
+
+            <!-- BOTTOM ROW -->
+            <div class="pill-row">
+              <span>
+                * Real commercial usage becomes valid when you connect your own
+                SD / Flux / SD3 API later.
+              </span>
+              <span>
+                Roadmap: <strong>upscale</strong>, <strong>inpainting</strong>,{" "}
+                <strong>variants</strong>.
+              </span>
+            </div>
+
+            <div class="generate-row">
+              <button type="submit" class="btn-generate">
+                <span>⚡</span> Generate preview
               </button>
-              <button class="chip" data-mode="poster">
-                Poster / text focus
-              </button>
+              <div class="generate-note">
+                This is a front-end demo. We simulate the result now – later you
+                can plug in Replicate, ComfyUI or your own GPU server.
+              </div>
             </div>
-          </div>
+          </form>
+        </div>
+      </section>
 
-          <button class="btn btn-primary btn-block" id="btn-generate">
-            Generate (demo, use 1 credit)
-          </button>
+      <!-- RIGHT: PREVIEW PANEL -->
+      <section class="panel">
+        <div class="panel-inner">
+          <header class="panel-header">
+            <div>
+              <div class="panel-title">Preview</div>
+              <div class="panel-sub">
+                Generated images will appear here. Use this to test prompts before
+                wiring up real models.
+              </div>
+            </div>
+          </header>
 
-          <div id="status" class="status">
-            Login karoge to credits count dikhega. Ye demo hai, koi real GPU
-            call nahi ho raha.
+          <div class="preview-shell">
+            <div class="preview-top">
+              <div class="preview-top-left">
+                <span class="chip chip-strong" id="preview-mode-chip">Stock mode</span>
+                <span class="chip" id="preview-meta-chip">1:1 · 1024px</span>
+              </div>
+              <div>Glory Studio · demo only</div>
+            </div>
+
+            <div class="preview-canvas" id="preview-canvas">
+              <div class="preview-empty" id="preview-empty">
+                <h2>No render yet</h2>
+                <p>
+                  Add a prompt on the left and click{" "}
+                  <span>Generate preview</span> to simulate an AI render with your
+                  current settings.
+                </p>
+              </div>
+            </div>
+
+            <div class="preview-status">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span class="status-dot" id="status-dot"></span>
+                <span id="status-label">Idle · waiting for prompt</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <!-- RIGHT side: Preview -->
-        <div>
-          <div class="preview-box">
-            <div class="preview-img"></div>
-            <div class="preview-label" id="preview-label">
-              Your preview will appear here (demo image)
-            </div>
-            <p class="preview-note">
-              Real SD3 / Flux / SDXL connection ke liye hum baad me backend
-              (Replicate / Together / apna GPU) se integrate karenge. Abhi ye
-              sirf UI + credits flow ka prototype hai.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
+  </div>
 
   <script>
-    // simple localStorage auth + credits (demo only)
-    const LS_KEY_NAME = "glory_name";
-    const LS_KEY_CREDITS = "glory_credits";
+    const stepsRange = document.getElementById("steps");
+    const cfgRange = document.getElementById("cfg");
+    const stepsValue = document.getElementById("steps-value");
+    const cfgValue = document.getElementById("cfg-value");
+    const form = document.getElementById("studio-form");
+    const previewCanvas = document.getElementById("preview-canvas");
+    const previewEmpty = document.getElementById("preview-empty");
+    const statusLabel = document.getElementById("status-label");
+    const progressFill = document.getElementById("progress-fill");
+    const statusDot = document.getElementById("status-dot");
+    const previewModeChip = document.getElementById("preview-mode-chip");
+    const previewMetaChip = document.getElementById("preview-meta-chip");
 
-    const authAnon = document.getElementById("auth-anon");
-    const authUser = document.getElementById("auth-user");
-    const nameInput = document.getElementById("name");
-    const btnLogin = document.getElementById("btn-login");
-    const btnLogout = document.getElementById("btn-logout");
-    const greet = document.getElementById("user-greet");
-    const creditsEl = document.getElementById("credits-count");
-    const btnGenerate = document.getElementById("btn-generate");
-    const statusEl = document.getElementById("status");
-    const previewLabel = document.getElementById("preview-label");
-    const promptEl = document.getElementById("prompt");
-
-    function loadState() {
-      const name = localStorage.getItem(LS_KEY_NAME);
-      let credits = parseInt(localStorage.getItem(LS_KEY_CREDITS) || "0", 10);
-
-      if (name) {
-        if (!credits) credits = 10;
-        localStorage.setItem(LS_KEY_CREDITS, String(credits));
-        authAnon.style.display = "none";
-        authUser.style.display = "block";
-        greet.textContent = "Hi, " + name + " 👋";
-        creditsEl.textContent = String(credits);
-        statusEl.textContent =
-          "Logged in demo mode. Har generation 1 credit use karegi.";
-        statusEl.className = "status ok";
-      } else {
-        authAnon.style.display = "block";
-        authUser.style.display = "none";
-        btnGenerate.disabled = true;
-        statusEl.textContent =
-          "Pehele display name se login karo, phir generate button active hoga.";
-        statusEl.className = "status";
-      }
-    }
-
-    btnLogin.addEventListener("click", () => {
-      const name = nameInput.value.trim();
-      if (!name) {
-        alert("Display name likho 🙂");
-        return;
-      }
-      localStorage.setItem(LS_KEY_NAME, name);
-      localStorage.setItem(LS_KEY_CREDITS, "10");
-      loadState();
+    stepsRange.addEventListener("input", () => {
+      stepsValue.textContent = stepsRange.value;
     });
 
-    btnLogout.addEventListener("click", () => {
-      localStorage.removeItem(LS_KEY_NAME);
-      localStorage.removeItem(LS_KEY_CREDITS);
-      loadState();
+    cfgRange.addEventListener("input", () => {
+      cfgValue.textContent = Number(cfgRange.value).toFixed(1);
     });
 
-    btnGenerate.addEventListener("click", () => {
-      let credits = parseInt(localStorage.getItem(LS_KEY_CREDITS) || "0", 10);
-      if (!credits || credits <= 0) {
-        statusEl.textContent = "Credits khatam. Demo me yahin tak hai 🙂";
-        statusEl.className = "status err";
-        return;
-      }
-      const prompt = promptEl.value.trim();
-      if (!prompt) {
-        statusEl.textContent = "Pehle prompt likho.";
-        statusEl.className = "status err";
-        return;
-      }
-      credits -= 1;
-      localStorage.setItem(LS_KEY_CREDITS, String(credits));
-      creditsEl.textContent = String(credits);
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-      previewLabel.textContent =
-        "Demo preview for: \"" +
-        (prompt.length > 80 ? prompt.slice(0, 77) + "…" : prompt) +
-        '"';
-      statusEl.textContent =
-        "Demo generate complete. Real image generation backend se connect karne ke baad hoga.";
-      statusEl.className = "status ok";
+      const prompt = document.getElementById("prompt").value.trim();
+      const style = document.getElementById("style").value;
+      const ratio = document.getElementById("ratio").value;
+      const size = document.getElementById("size").value;
+      const steps = stepsRange.value;
+      const cfg = cfgRange.value;
+      const batch = document.getElementById("batch").value;
+
+      if (!prompt) return;
+
+      // Update chips
+      const modeLabel =
+        style === "photo"
+          ? "Photo mode"
+          : style === "illustration"
+          ? "Illustration mode"
+          : style === "3d"
+          ? "3D mode"
+          : style === "anime"
+          ? "Anime mode"
+          : style === "poster"
+          ? "Poster mode"
+          : "Mixed mode";
+
+      previewModeChip.textContent = modeLabel;
+      previewMetaChip.textContent = `${ratio} · ${size}px · ${batch}x`;
+
+      // Fake progress
+      statusLabel.textContent = "Generating preview… (demo)";
+      statusDot.style.background = "#facc15";
+      progressFill.style.width = "12%";
+
+      setTimeout(() => (progressFill.style.width = "45%"), 250);
+      setTimeout(() => (progressFill.style.width = "80%"), 700);
+
+      setTimeout(() => {
+        progressFill.style.width = "100%";
+        statusLabel.textContent =
+          "Preview ready · connect a real model later for true images";
+        statusDot.style.background = "#22c55e";
+
+        // Render simple "fake" card
+        previewCanvas.innerHTML = `
+          <div
+            style="
+              width: 100%;
+              height: 100%;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              padding:16px;
+            "
+          >
+            <div
+              style="
+                max-width:320px;
+                text-align:left;
+                background:rgba(15,23,42,0.98);
+                border-radius:12px;
+                border:1px solid rgba(55,65,81,0.9);
+                padding:14px 14px 12px;
+                box-shadow:0 18px 40px rgba(15,23,42,0.95);
+              "
+            >
+              <div style="font-size:10px;color:#9ca3af;margin-bottom:6px;">
+                Simulated render · frontend only
+              </div>
+              <div style="font-size:13px;font-weight:600;margin-bottom:6px;">
+                ${prompt.slice(0, 120)}${prompt.length > 120 ? "…" : ""}
+              </div>
+              <div style="font-size:11px;color:#9ca3af;margin-bottom:6px;">
+                Style: <strong>${modeLabel}</strong> · Ratio: <strong>${ratio}</strong>
+                · Steps: <strong>${steps}</strong> · Guidance: <strong>${cfg}</strong>
+              </div>
+              <div style="font-size:11px;color:#6b7280;">
+                Hook this panel to your favorite provider (Replicate, ComfyUI,
+                local GPU) using an API call to replace this placeholder with real
+                images.
+              </div>
+            </div>
+          </div>
+        `;
+      }, 1300);
     });
-
-    // chips for ratio + mode
-    function setupChipGroup(id) {
-      const row = document.getElementById(id);
-      row.addEventListener("click", (e) => {
-        const btn = e.target.closest(".chip");
-        if (!btn) return;
-        [...row.querySelectorAll(".chip")].forEach((c) =>
-          c.classList.remove("active")
-        );
-        btn.classList.add("active");
-      });
-    }
-    setupChipGroup("ratio-row");
-    setupChipGroup("mode-row");
-
-    loadState();
   </script>
 </body>
-</html>
+    </html>
