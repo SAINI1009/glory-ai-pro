@@ -11,7 +11,37 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
     rel="stylesheet"
   />
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
+.nav-link {
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  text-decoration: none;
+  color: #e5e7eb;
+  opacity: 0.9;
+  transition: background 0.15s ease, opacity 0.15s ease, transform 0.1s ease;
+}
+
+.nav-link:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.nav-link-primary {
+  background: linear-gradient(135deg, #2563eb, #22d3ee);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.nav-link-active {
+  border-color: rgba(96, 165, 250, 0.7);
+}
   <style>
     :root {
       --bg: #050712;
@@ -748,26 +778,18 @@
   <div class="page">
     <!-- NAVBAR -->
     <header class="nav">
-      <div class="nav-left">
-        <div class="logo-badge">⚡</div>
-        <div>
-          <div class="brand-main">
-            Glory AI Pro
-            <span class="brand-tag">SD3 stock & poster studio</span>
-          </div>
-        </div>
-      </div>
-      <div class="nav-right">
-        <div class="pill">
-          <span class="pill-dot"></span>
-          <span>Safe for commercial use</span>
-        </div>
-        <button class="btn btn-ghost" onclick="scrollToStudio()">
-          <span class="btn-icon">🎛️</span> Studio
-        <a class="btn btn-primary" href="app.html">
-  <span class="btn-icon">⚡</span> Open Glory Studio
-</a>
-      </div>
+  <div class="nav-left">
+    <div class="logo-badge">⚡</div>
+    <div class="brand-main">
+      <div>Glory AI Pro</div>
+      <span class="brand-tag">SD3 stock & poster studio</span>
+    </div>
+  </div>
+
+  <div class="nav-right">
+    <a href="index.html" class="nav-link nav-link-active">Home</a>
+    <a href="app.html" class="nav-link nav-link-primary">Studio</a>
+  </div>
     </header>
 
     <!-- MAIN GRID -->
