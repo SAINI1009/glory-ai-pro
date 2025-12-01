@@ -11,7 +11,37 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
+.nav-link {
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  text-decoration: none;
+  color: #e5e7eb;
+  opacity: 0.9;
+  transition: background 0.15s ease, opacity 0.15s ease, transform 0.1s ease;
+}
+
+.nav-link:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.nav-link-primary {
+  background: linear-gradient(135deg, #2563eb, #22d3ee);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.nav-link-active {
+  border-color: rgba(96, 165, 250, 0.7);
+}
   <style>
     :root {
       --bg: #050712;
@@ -530,31 +560,19 @@
   <div class="page">
     <!-- NAV -->
     <header class="nav">
-      <div class="nav-left">
-        <div class="logo-mark">⚡</div>
-        <div>
-          <div class="logo-text-main">Glory <span>AI Pro</span></div>
-          <div class="logo-sub">Image & poster generator studio</div>
-        </div>
-        <span class="tag-pill">Studio</span>
-      </div>
+    <header class="nav">
+  <div class="nav-left">
+    <div class="logo-badge">⚡</div>
+    <div class="brand-main">
+      <div>Glory AI Pro</div>
+      <span class="brand-tag">SD3 stock & poster studio</span>
+    </div>
+  </div>
 
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="app.html" class="active">Studio</a>
-        <a href="#!" aria-disabled="true">Pricing (soon)</a>
-        <a href="#!" aria-disabled="true">Account (soon)</a>
-      </nav>
-
-      <div class="nav-right">
-        <div class="pill">
-          <span class="pill-dot"></span>
-          Live demo
-        </div>
-        <a href="index.html" class="nav-cta">
-          <span>←</span> Back to site
-        </a>
-      </div>
+  <div class="nav-right">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="app.html" class="nav-link nav-link-primary nav-link-active">Studio</a>
+  </div>
     </header>
 
     <!-- MAIN STUDIO LAYOUT -->
