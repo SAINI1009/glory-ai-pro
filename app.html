@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Glory AI Pro Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050814;
+      --panel: #0c1020;
+      --accent: #4f8bff;
+      --accent-soft: rgba(79, 139, 255, 0.1);
+      --text: #f9fbff;
+      --muted: #9ca5c4;
+      --danger: #ff5c7a;
+      --success: #4ade80;
+      --border: #1e2438;
+      --radius-lg: 18px;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+    }
+    body {
+      background: radial-gradient(circle at top, #101533 0, #050814 55%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAVBAR */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(22px);
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 8, 20, 0.9),
+        rgba(5, 8, 20, 0.6)
+      );
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 11px;
+      background: radial-gradient(circle at 30% 0, #ffe45e, #ff7a3c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #050814;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 0 18px rgba(255, 178, 88, 0.65);
+    }
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .brand-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-link {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .nav-link:hover {
+      color: var(--text);
+    }
+    .nav-pill {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .nav-btn {
+      background: var(--accent);
+      color: #050814;
+      border-radius: 999px;
+      border: none;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    /* LAYOUT */
+    .page {
+      flex: 1;
+      padding: 14px 12px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 768px) {
+      .page {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .nav {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+    }
+
+    .panel {
+      background: radial-gradient(circle at 0 0, #171d3a 0, #050814 60%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 14px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6);
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .panel-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .panel-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* AUTH + CREDITS */
+    .auth-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    input,
+    textarea,
+    select {
+      background: rgba(8, 12, 32, 0.9);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      font-size: 13px;
+      color: var(--text);
+      width: 100%;
+    }
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(79, 139, 255, 0.5);
+    }
+    .btn {
+      border-radius: 999px;
+      border: none;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, #4f8bff, #7a5cff);
+      color: #fff;
+    }
+    .btn-ghost {
+      background: rgba(13, 18, 40, 0.9);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .btn-block {
+      width: 100%;
+      margin-top: 8px;
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .credits-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .credits-pill span {
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .hint strong {
+      color: #c5d3ff;
+    }
+
+    /* STUDIO MAIN */
+    .studio-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 14px;
+    }
+    @media (max-width: 768px) {
+      .studio-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .badge {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 4px 8px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
+    }
+    .studio-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .studio-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .field-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .options-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .chip {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 5px 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .chip.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .status {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .status.ok {
+      color: var(--success);
+    }
+    .status.err {
+      color: var(--danger);
+    }
+
+    /* PREVIEW */
+    .preview-box {
+      border-radius: 16px;
+      border: 1px dashed rgba(121, 130, 170, 0.7);
+      padding: 12px;
+      background: radial-gradient(circle at top, #222a4d 0, #050814 55%);
+      min-height: 170px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .preview-img {
+      width: 130px;
+      height: 90px;
+      border-radius: 12px;
+      background: conic-gradient(
+          from 220deg,
+          rgba(79, 139, 255, 0.08),
+          rgba(255, 118, 99, 0.26),
+          rgba(79, 139, 255, 0.28),
+          rgba(169, 92, 255, 0.24),
+          rgba(79, 139, 255, 0.08)
+        ),
+        radial-gradient(circle at 0 0, #151b36, #050814);
+      border: 1px solid rgba(120, 165, 255, 0.55);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+    .preview-img::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 10px;
+      border: 1px solid rgba(13, 19, 41, 0.8);
+      background: radial-gradient(circle at 20% 0, #ffffff1c, #0000);
+    }
+    .preview-label {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .preview-note {
+      font-size: 11px;
+      color: var(--muted);
+      max-width: 260px;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="nav-left">
+      <div class="logo">⚡</div>
+      <div>
+        <div class="brand-title">Glory AI Pro</div>
+        <div class="brand-sub">SD3 Studio · Demo frontend</div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <span class="nav-pill">Demo only · No real GPU yet</span>
+      <a class="nav-link" href="https://gloryaipro.netlify.app" target="_self">
+        Landing
+      </a>
+      <a class="nav-btn" href="app.html">
+        Studio
+        <span>▶</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN PAGE -->
+  <main class="page">
+    <!-- LEFT: LOGIN + CREDITS -->
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Account & Credits</div>
+          <div class="panel-sub">
+            Ye sirf demo login hai, data tumhare browser me hi rahega.
+          </div>
+        </div>
+      </div>
+
+      <div id="auth-anon">
+        <div class="auth-group">
+          <label for="name">Display name</label>
+          <input id="name" placeholder="Jaise: Gaurav, Mona..." />
+        </div>
+        <button class="btn btn-primary btn-block" id="btn-login">
+          Continue to Glory Studio
+        </button>
+        <p class="hint">
+          <strong>Note:</strong> Abhi koi real password / database nahi hai. Ye
+          sirf prototype hai jaise Figma ka fake login.
+        </p>
+      </div>
+
+      <div id="auth-user" style="display:none;">
+        <p class="panel-title" id="user-greet"></p>
+        <p class="panel-sub" style="margin-top:4px;">
+          Ye prototype version hai. Real users + payments baad me backend se
+          connect karenge.
+        </p>
+
+        <div style="margin-top:10px; display:flex; gap:8px; align-items:center;">
+          <div class="credits-pill">
+            Credits
+            <span id="credits-count">10</span>
+          </div>
+          <button class="btn btn-ghost" id="btn-logout">Log out</button>
+        </div>
+
+        <p class="hint">
+          Har baar <strong>Generate</strong> dabane par 1 credit kam hoga.
+          Browser clear karoge to credits reset ho jayenge.
+        </p>
+      </div>
+    </section>
+
+    <!-- RIGHT: STUDIO -->
+    <section class="panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Glory Studio · SD3 Stock Mode</div>
+          <div class="panel-sub">
+            Prompt likho, aspect ratio choose karo · Real image backend baad me
+            connect karenge.
+          </div>
+        </div>
+      </div>
+
+      <div class="studio-grid">
+        <!-- LEFT side: Controls -->
+        <div>
+          <div class="badge-row">
+            <div class="badge">
+              <span class="badge-dot"></span> Frontend only
+            </div>
+            <div class="badge">Safe for commercial prompts</div>
+          </div>
+
+          <h2 class="studio-title">Prompt (English best)</h2>
+          <p class="studio-sub">
+            Light, mood &amp; camera angle describe karo. Brand logos, real
+            people, text-heavy content avoid karo.
+          </p>
+
+          <div class="field-row">
+            <label for="prompt">Describe your image</label>
+            <textarea
+              id="prompt"
+              placeholder="Futuristic cyber security shield with glowing blue circuits, dark background, editorial lighting"
+            ></textarea>
+          </div>
+
+          <div class="field-row">
+            <label>Aspect ratio</label>
+            <div class="options-row" id="ratio-row">
+              <button class="chip active" data-ratio="1:1">1:1 square</button>
+              <button class="chip" data-ratio="3:4">3:4 poster</button>
+              <button class="chip" data-ratio="16:9">16:9 wide</button>
+              <button class="chip" data-ratio="9:16">9:16 vertical</button>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <label>Mode</label>
+            <div class="options-row" id="mode-row">
+              <button class="chip active" data-mode="stock">
+                Stock (no text)
+              </button>
+              <button class="chip" data-mode="poster">
+                Poster / text focus
+              </button>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block" id="btn-generate">
+            Generate (demo, use 1 credit)
+          </button>
+
+          <div id="status" class="status">
+            Login karoge to credits count dikhega. Ye demo hai, koi real GPU
+            call nahi ho raha.
+          </div>
+        </div>
+
+        <!-- RIGHT side: Preview -->
+        <div>
+          <div class="preview-box">
+            <div class="preview-img"></div>
+            <div class="preview-label" id="preview-label">
+              Your preview will appear here (demo image)
+            </div>
+            <p class="preview-note">
+              Real SD3 / Flux / SDXL connection ke liye hum baad me backend
+              (Replicate / Together / apna GPU) se integrate karenge. Abhi ye
+              sirf UI + credits flow ka prototype hai.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // simple localStorage auth + credits (demo only)
+    const LS_KEY_NAME = "glory_name";
+    const LS_KEY_CREDITS = "glory_credits";
+
+    const authAnon = document.getElementById("auth-anon");
+    const authUser = document.getElementById("auth-user");
+    const nameInput = document.getElementById("name");
+    const btnLogin = document.getElementById("btn-login");
+    const btnLogout = document.getElementById("btn-logout");
+    const greet = document.getElementById("user-greet");
+    const creditsEl = document.getElementById("credits-count");
+    const btnGenerate = document.getElementById("btn-generate");
+    const statusEl = document.getElementById("status");
+    const previewLabel = document.getElementById("preview-label");
+    const promptEl = document.getElementById("prompt");
+
+    function loadState() {
+      const name = localStorage.getItem(LS_KEY_NAME);
+      let credits = parseInt(localStorage.getItem(LS_KEY_CREDITS) || "0", 10);
+
+      if (name) {
+        if (!credits) credits = 10;
+        localStorage.setItem(LS_KEY_CREDITS, String(credits));
+        authAnon.style.display = "none";
+        authUser.style.display = "block";
+        greet.textContent = "Hi, " + name + " 👋";
+        creditsEl.textContent = String(credits);
+        statusEl.textContent =
+          "Logged in demo mode. Har generation 1 credit use karegi.";
+        statusEl.className = "status ok";
+      } else {
+        authAnon.style.display = "block";
+        authUser.style.display = "none";
+        btnGenerate.disabled = true;
+        statusEl.textContent =
+          "Pehele display name se login karo, phir generate button active hoga.";
+        statusEl.className = "status";
+      }
+    }
+
+    btnLogin.addEventListener("click", () => {
+      const name = nameInput.value.trim();
+      if (!name) {
+        alert("Display name likho 🙂");
+        return;
+      }
+      localStorage.setItem(LS_KEY_NAME, name);
+      localStorage.setItem(LS_KEY_CREDITS, "10");
+      loadState();
+    });
+
+    btnLogout.addEventListener("click", () => {
+      localStorage.removeItem(LS_KEY_NAME);
+      localStorage.removeItem(LS_KEY_CREDITS);
+      loadState();
+    });
+
+    btnGenerate.addEventListener("click", () => {
+      let credits = parseInt(localStorage.getItem(LS_KEY_CREDITS) || "0", 10);
+      if (!credits || credits <= 0) {
+        statusEl.textContent = "Credits khatam. Demo me yahin tak hai 🙂";
+        statusEl.className = "status err";
+        return;
+      }
+      const prompt = promptEl.value.trim();
+      if (!prompt) {
+        statusEl.textContent = "Pehle prompt likho.";
+        statusEl.className = "status err";
+        return;
+      }
+      credits -= 1;
+      localStorage.setItem(LS_KEY_CREDITS, String(credits));
+      creditsEl.textContent = String(credits);
+
+      previewLabel.textContent =
+        "Demo preview for: \"" +
+        (prompt.length > 80 ? prompt.slice(0, 77) + "…" : prompt) +
+        '"';
+      statusEl.textContent =
+        "Demo generate complete. Real image generation backend se connect karne ke baad hoga.";
+      statusEl.className = "status ok";
+    });
+
+    // chips for ratio + mode
+    function setupChipGroup(id) {
+      const row = document.getElementById(id);
+      row.addEventListener("click", (e) => {
+        const btn = e.target.closest(".chip");
+        if (!btn) return;
+        [...row.querySelectorAll(".chip")].forEach((c) =>
+          c.classList.remove("active")
+        );
+        btn.classList.add("active");
+      });
+    }
+    setupChipGroup("ratio-row");
+    setupChipGroup("mode-row");
+
+    loadState();
+  </script>
+</body>
+</html>
