@@ -2,326 +2,717 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Glory AI Pro – AI Image & Poster Studio</title>
+  <title>Glory AI Pro – SD3 Stock & Poster Studio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Glory AI Pro – Create stock-safe AI images, posters and wallpapers with your own AI studio."
+    content="Glory AI Pro – Create AI-powered stock images, posters and thumbnails with perfect aspect ratios and crisp typography."
   />
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #0f172a 0, #020617 45%, #000 100%);
-      color: #e5e7eb;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    :root {
+      --bg-main: #020617;
+      --bg-elevated: #020617;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.16);
+      --accent-strong: #0ea5e9;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.24);
+      --danger: #f97373;
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.9);
+      --shadow-glow: 0 0 60px rgba(56, 189, 248, 0.55);
+      --blur-bg: blur(18px);
     }
-    header {
-      padding: 14px 18px;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.14), transparent 55%),
+        radial-gradient(circle at bottom, rgba(129, 140, 248, 0.18), transparent 55%),
+        var(--bg-main);
+      color: var(--text-main);
+      font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 20px 18px 36px;
+    }
+
+    /* Top bar / nav */
+    .nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.7), rgba(2, 6, 23, 0.95));
+      backdrop-filter: var(--blur-bg);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
       gap: 10px;
     }
-    .logo-wrap { display: flex; align-items: center; gap: 10px; }
-    .logo-mark {
-      width: 32px; height: 32px; border-radius: 999px;
-      background: linear-gradient(135deg, #22d3ee, #3b82f6);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; font-weight: 700; color: #020617;
-    }
-    .logo-title { font-size: 18px; font-weight: 600; }
-    .logo-sub { font-size: 11px; color: #9ca3af; }
-    .tagline { font-size: 11px; color: #9ca3af; text-align: right; }
-    @media (max-width: 640px) { .tagline { display: none; } }
 
-    main {
-      flex: 1;
-      padding: 24px 18px 32px;
-      max-width: 1100px;
-      width: 100%;
-      margin: 0 auto;
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 20% 20%, #22d3ee, #0ea5e9 40%, #0f172a 80%);
+      box-shadow: var(--shadow-glow);
       display: flex;
-      flex-direction: column;
-      gap: 24px;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #f9fafb;
     }
 
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 24px;
-      align-items: center;
+    .brand-text-main {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
     }
-    @media (max-width: 768px) { .hero { grid-template-columns: 1fr; } }
+
+    .brand-text-sub {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pill {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      border-radius: var(--radius-pill);
+      padding: 6px 11px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-muted);
+    }
+
+    .pill span {
+      color: #22c55e;
+    }
+
+    .pill-cta {
+      padding: 7px 13px;
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      border: 1px solid rgba(56, 189, 248, 0.75);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .pill-cta svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Layout */
+    .grid-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 880px) {
+      .grid-main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .hero-title {
+        font-size: 26px;
+      }
+    }
+
+    /* Left column: hero + controls */
+    .panel-left {
+      border-radius: var(--radius-lg);
+      padding: 18px 18px 18px;
+      border: 1px solid rgba(148, 163, 184, 0.38);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.85), rgba(2, 6, 23, 0.98));
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: var(--blur-bg);
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .hero-label-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.8);
+    }
 
     .hero-title {
-      font-size: 28px;
-      line-height: 1.2;
+      font-size: 30px;
+      line-height: 1.1;
       font-weight: 700;
       margin-bottom: 10px;
     }
-    .hero-highlight {
-      background: linear-gradient(135deg, #22d3ee, #a855f7);
+
+    .hero-title span {
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
       -webkit-background-clip: text;
       color: transparent;
     }
-    .hero-text {
+
+    .hero-sub {
       font-size: 14px;
-      color: #9ca3af;
-      margin-bottom: 14px;
-      max-width: 460px;
-    }
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      color: var(--text-muted);
       margin-bottom: 16px;
     }
-    .badge {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.7);
-    }
-    .hero-actions {
+
+    .hero-metrics {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      align-items: center;
+      margin-bottom: 18px;
     }
-    .btn-primary {
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(135deg, #22d3ee, #3b82f6);
-      color: #020617;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-primary span { font-size: 16px; }
-    .btn-ghost {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: transparent;
-      color: #9ca3af;
-      padding: 8px 14px;
-      font-size: 12px;
-      display: inline-flex;
+
+    .metric-chip {
+      padding: 7px 11px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
       align-items: center;
       gap: 6px;
-      text-decoration: none;
+    }
+
+    .metric-chip strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .metric-chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #facc15;
+    }
+
+    .control-group {
+      margin-bottom: 14px;
+    }
+
+    .control-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .control-label span {
+      color: var(--accent-strong);
+      font-size: 11px;
+    }
+
+    .prompt-input {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--text-main);
+      font-size: 13px;
+      padding: 10px 11px;
+      resize: vertical;
+      min-height: 70px;
+      outline: none;
+    }
+
+    .prompt-input::placeholder {
+      color: #6b7280;
+    }
+
+    .row-controls {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .row-controls-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .select {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      font-size: 13px;
+      padding: 8px 10px;
+      outline: none;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      border: 1px dashed rgba(148, 163, 184, 0.55);
+      color: var(--text-muted);
+    }
+
+    .badge.primary {
+      border-style: solid;
+      border-color: rgba(56, 189, 248, 0.7);
+      color: var(--accent-strong);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .btn-primary {
+      width: 100%;
+      margin-top: 8px;
+      padding: 11px 14px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #0b1120;
+      background: linear-gradient(135deg, #38bdf8, #22c55e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .btn-primary span {
+      font-size: 17px;
+    }
+
+    .btn-note {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-note-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #f97316;
+    }
+
+    /* Right column: preview + feature cards */
+    .panel-right {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
     .preview-card {
-      border-radius: 18px;
+      position: relative;
+      border-radius: var(--radius-lg);
+      padding: 14px 14px 14px;
       border: 1px solid rgba(148, 163, 184, 0.4);
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 55%),
-                  radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.2), transparent 55%),
-                  rgba(15, 23, 42, 0.95);
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .preview-label {
-      font-size: 11px;
-      color: #9ca3af;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    .preview-box {
-      border-radius: 14px;
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      padding: 10px;
-      font-size: 11px;
-      color: #e5e7eb;
-      min-height: 140px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 6px;
-      background: rgba(15, 23, 42, 0.9);
+      background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), rgba(15, 23, 42, 0.96));
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
     }
 
-    .sections {
+    .preview-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .preview-badges {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .preview-pill {
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(15, 23, 42, 0.6);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .preview-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .preview-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+    }
+
+    .preview-frame {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(15, 23, 42, 0.85);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), #020617 70%);
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .preview-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(15, 23, 42, 0.9) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 1px, transparent 1px);
+      background-size: 20px 20px;
+      opacity: 0.8;
+      mix-blend-mode: soft-light;
+    }
+
+    .preview-orb {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #e0f2fe, #38bdf8, transparent 70%);
+      opacity: 0.9;
+      filter: blur(1px);
+    }
+
+    .preview-orb-2 {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 70% 80%, #a855f7, #1d4ed8, transparent 70%);
+      opacity: 0.9;
+      filter: blur(1px);
+    }
+
+    .preview-text {
+      position: relative;
+      z-index: 2;
+      text-align: left;
+      padding: 18px;
+      max-width: 320px;
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7));
+      border-radius: 18px;
+      border: 1px solid rgba(15, 23, 42, 0.86);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+
+    .preview-heading {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    .preview-heading span {
+      color: #bae6fd;
+    }
+
+    .preview-line {
+      font-size: 11px;
+      color: #cbd5f5;
+      margin-bottom: 6px;
+    }
+
+    .preview-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .preview-tag {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .preview-watermark {
+      position: absolute;
+      bottom: 10px;
+      right: 12px;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(226, 232, 240, 0.62);
+    }
+
+    /* Feature cards */
+    .feature-row {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 8px;
+      gap: 10px;
     }
-    @media (max-width: 900px) {
-      .sections { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    @media (max-width: 880px) {
+      .feature-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
-    @media (max-width: 640px) {
-      .sections { grid-template-columns: 1fr; }
+
+    @media (max-width: 620px) {
+      .feature-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
-    .section-card {
-      border-radius: 14px;
-      border: 1px solid rgba(30, 64, 175, 0.9);
-      background: rgba(15, 23, 42, 0.92);
-      padding: 12px 12px 14px;
+
+    .feature-card {
+      border-radius: 16px;
+      padding: 11px 11px 11px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.98));
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
-    .section-title {
-      font-size: 13px;
+
+    .feature-title {
+      font-size: 12px;
       font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .section-text {
-      font-size: 11px;
-      color: #9ca3af;
-    }
-    .section-tags {
-      margin-top: 6px;
+      color: #e5e7eb;
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       gap: 6px;
     }
-    .tag {
-      font-size: 10px;
-      padding: 3px 8px;
+
+    .feature-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: #9ca3af;
+      background: var(--accent-strong);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.75);
     }
 
-    .note-box {
-      margin-top: 18px;
-      border-radius: 12px;
-      border: 1px dashed rgba(148, 163, 184, 0.6);
-      padding: 10px 12px;
+    .feature-tagline {
       font-size: 11px;
-      color: #9ca3af;
-      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
     }
 
-    footer {
-      padding: 10px 18px 16px;
-      border-top: 1px solid rgba(30, 64, 175, 0.8);
+    .footer {
+      margin-top: 20px;
       font-size: 11px;
-      color: #6b7280;
+      color: var(--text-muted);
       display: flex;
-      justify-content: space-between;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 8px;
+      justify-content: space-between;
+      border-top: 1px solid rgba(148, 163, 184, 0.3);
+      padding-top: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer a {
+      color: var(--text-muted);
     }
   </style>
-</head>
-<body>
-  <header>
-    <div class="logo-wrap">
-      <div class="logo-mark">G</div>
-      <div>
-        <div class="logo-title">Glory AI Pro</div>
-        <div class="logo-sub">AI Image & Poster Studio · by G.K.S</div>
-      </div>
-    </div>
-    <div class="tagline">
-      Stock-safe AI visuals · No brands · No logos
-    </div>
-  </header>
 
-  <main>
-    <section class="hero">
-      <div>
+  <script>
+    // Temporary demo click handler – backend abhi nahi hai.
+    function handleGenerateClick() {
+      alert(
+        "Glory AI Pro UI live hai! 🔥\n\nAbhi ye demo button hai.\nJab hum backend / model connect karenge tab yahi se real images generate hongi."
+      );
+    }
+  </script>
+</head>
+
+<body>
+  <div class="page-shell">
+    <!-- Top nav -->
+    <header class="nav">
+      <div class="brand">
+        <div class="brand-logo">⚡</div>
+        <div>
+          <div class="brand-text-main">Glory AI Pro</div>
+          <span class="brand-text-sub">SD3 Stock & Poster Studio</span>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <div class="pill">
+          Safe for <span>commercial</span> use
+        </div>
+        <button class="pill-cta" type="button">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M5 12h14M12 5l7 7-7 7"
+              stroke="#38bdf8"
+              stroke-width="1.7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span>Go to app</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main grid -->
+    <main class="grid-main">
+      <!-- LEFT -->
+      <section class="panel-left">
+        <div class="hero-label">
+          <div class="hero-label-dot"></div>
+          Next-gen SD3 workflow for stock, posters & thumbnails
+        </div>
+
         <h1 class="hero-title">
-          Create <span class="hero-highlight">clean, stock-ready</span><br />
-          AI images, posters & wallpapers.
+          Design <span>print-ready</span> AI images in a few prompts.
         </h1>
-        <p class="hero-text">
-          Glory AI Pro is your focused AI studio for cyber tech art, minimal posters
-          and gradient wallpapers – designed to avoid obvious logos, brands and
-          copyrighted characters.
+
+        <p class="hero-sub">
+          Glory AI Pro focuses on clean layouts, sharp text, and perfect aspect ratios –
+          tuned for Adobe Stock, poster prints, thumbnails and social campaigns.
         </p>
 
-        <div class="hero-badges">
-          <div class="badge">Tech & cyber art</div>
-          <div class="badge">Posters & quotes</div>
-          <div class="badge">Mobile wallpapers</div>
-          <div class="badge">Adobe Stock friendly</div>
-        </div>
-
-        <div class="hero-actions">
-          <a href="#studio" class="btn-primary">
-            <span>⚡</span> Launch Studio (coming soon)
-          </a>
-          <a href="#how" class="btn-ghost">How it works</a>
-        </div>
-      </div>
-
-      <div>
-        <div class="preview-card">
-          <div class="preview-label">Example prompts</div>
-          <div class="preview-box">
-            <div>1. Futuristic cyber security shield, glowing blue circuits, dark background, no text, no logo</div>
-            <div>2. Minimal pastel gradient background, smooth abstract shapes, clean design, high quality</div>
-            <div>3. Vertical mobile wallpaper, neon purple waves on black, high contrast, no letters</div>
+        <div class="hero-metrics">
+          <div class="metric-chip">
+            <div class="metric-chip-dot"></div>
+            <strong>8+</strong> aspect ratios
+          </div>
+          <div class="metric-chip">
+            <strong>2 modes</strong> stock / text poster
+          </div>
+          <div class="metric-chip">
+            <strong>Dark</strong> cyber & tech themes
           </div>
         </div>
-      </div>
-    </section>
 
-    <section class="sections" id="how">
-      <div class="section-card">
-        <div class="section-title">1 · Stock-friendly prompts</div>
-        <div class="section-text">
-          Focus on generic subjects: tech, geometry, nature, light, gradients and
-          abstract scenes. Avoid company names, film characters, real people and
-          sports logos.
+        <div class="control-group">
+          <div class="control-label">
+            Prompt (English is best)
+            <span>Tip: describe light, mood & camera angle</span>
+          </div>
+          <textarea
+            class="prompt-input"
+            placeholder="Futuristic cyber security shield with glowing blue circuits, dark tech background, ultra sharp, editorial lighting"
+          ></textarea>
         </div>
-        <div class="section-tags">
-          <span class="tag">No brands</span>
-          <span class="tag">No faces</span>
-          <span class="tag">No movie IP</span>
-        </div>
-      </div>
 
-      <div class="section-card" id="studio">
-        <div class="section-title">2 · Glory Studio (soon)</div>
-        <div class="section-text">
-          The web app will let you choose styles (Realistic, Minimal, 3D, Cartoon),
-          aspect ratios (1:1, 4:5, 16:9, 9:16) and speed vs quality. All powered by
-          custom AI models.
-        </div>
-        <div class="section-tags">
-          <span class="tag">Realistic</span>
-          <span class="tag">Minimal</span>
-          <span class="tag">3D</span>
-          <span class="tag">Cartoon</span>
-        </div>
-      </div>
+        <div class="row-controls-3">
+          <div class="control-group">
+            <div class="control-label">Style</div>
+            <select class="select">
+              <option>Realistic – photo / render</option>
+              <option>Minimal – clean flat look</option>
+              <option>3D – studio / product</option>
+              <option>Cartoon – bold & fun</option>
+            </select>
+          </div>
 
-      <div class="section-card">
-        <div class="section-title">3 · Manual safety check</div>
-        <div class="section-text">
-          Before uploading to stock sites, review every image. If it contains any
-          logos, brands, text or recognizable people, simply discard that image.
-        </div>
-        <div class="section-tags">
-          <span class="tag">Review first</span>
-          <span class="tag">Safer uploads</span>
-        </div>
-      </div>
-    </section>
+          <div class="control-group">
+            <div class="control-label">Aspect ratio</div>
+            <select class="select">
+              <option>1:1 – Square</option>
+              <option>4:5 – Portrait</option>
+              <option>3:4 – Portrait</option>
+              <option>16:9 – Wide</option>
+              <option>9:16 – Vertical</option>
+              <option>21:9 – Ultra wide</option>
+            </select>
+          </div>
 
-    <div class="note-box">
-      <strong>Note:</strong> Glory AI Pro is under active development. This landing page is the official
-      home of the project. The generation studio, user accounts and API access will be added
-      step by step.
-    </div>
-  </main>
+          <div class="control-group">
+            <div class="control-label">Mode</div>
+            <select class="select">
+              <option>Clean stock – no text</option>
+              <option>Poster / text focus</option>
+            </select>
+          </div>
+        </div>
 
-  <footer>
-    <span>© 2025 Glory AI Pro. All rights reserved.</span>
-    <span>Designed by G.K.S · Built for stock-safe AI images.</span>
-  </footer>
-</body>
-  </html>
+        <div class="badge-row">
+          <span class="badge primary
