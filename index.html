@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Glory AI Pro – AI Image & Poster Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Glory AI Pro – Create stock-safe AI images, posters and wallpapers with your own AI studio."
+  />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 45%, #000 100%);
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 10px; }
+    .logo-mark {
+      width: 32px; height: 32px; border-radius: 999px;
+      background: linear-gradient(135deg, #22d3ee, #3b82f6);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; color: #020617;
+    }
+    .logo-title { font-size: 18px; font-weight: 600; }
+    .logo-sub { font-size: 11px; color: #9ca3af; }
+    .tagline { font-size: 11px; color: #9ca3af; text-align: right; }
+    @media (max-width: 640px) { .tagline { display: none; } }
+
+    main {
+      flex: 1;
+      padding: 24px 18px 32px;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: center;
+    }
+    @media (max-width: 768px) { .hero { grid-template-columns: 1fr; } }
+
+    .hero-title {
+      font-size: 28px;
+      line-height: 1.2;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .hero-highlight {
+      background: linear-gradient(135deg, #22d3ee, #a855f7);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .hero-text {
+      font-size: 14px;
+      color: #9ca3af;
+      margin-bottom: 14px;
+      max-width: 460px;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .badge {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.7);
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn-primary {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #22d3ee, #3b82f6);
+      color: #020617;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary span { font-size: 16px; }
+    .btn-ghost {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: transparent;
+      color: #9ca3af;
+      padding: 8px 14px;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .preview-card {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.2), transparent 55%),
+                  rgba(15, 23, 42, 0.95);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .preview-label {
+      font-size: 11px;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .preview-box {
+      border-radius: 14px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      padding: 10px;
+      font-size: 11px;
+      color: #e5e7eb;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .sections {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+    @media (max-width: 900px) {
+      .sections { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .sections { grid-template-columns: 1fr; }
+    }
+    .section-card {
+      border-radius: 14px;
+      border: 1px solid rgba(30, 64, 175, 0.9);
+      background: rgba(15, 23, 42, 0.92);
+      padding: 12px 12px 14px;
+    }
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .section-text {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+    .section-tags {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #9ca3af;
+    }
+
+    .note-box {
+      margin-top: 18px;
+      border-radius: 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      padding: 10px 12px;
+      font-size: 11px;
+      color: #9ca3af;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    footer {
+      padding: 10px 18px 16px;
+      border-top: 1px solid rgba(30, 64, 175, 0.8);
+      font-size: 11px;
+      color: #6b7280;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-wrap">
+      <div class="logo-mark">G</div>
+      <div>
+        <div class="logo-title">Glory AI Pro</div>
+        <div class="logo-sub">AI Image & Poster Studio · by G.K.S</div>
+      </div>
+    </div>
+    <div class="tagline">
+      Stock-safe AI visuals · No brands · No logos
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <h1 class="hero-title">
+          Create <span class="hero-highlight">clean, stock-ready</span><br />
+          AI images, posters & wallpapers.
+        </h1>
+        <p class="hero-text">
+          Glory AI Pro is your focused AI studio for cyber tech art, minimal posters
+          and gradient wallpapers – designed to avoid obvious logos, brands and
+          copyrighted characters.
+        </p>
+
+        <div class="hero-badges">
+          <div class="badge">Tech & cyber art</div>
+          <div class="badge">Posters & quotes</div>
+          <div class="badge">Mobile wallpapers</div>
+          <div class="badge">Adobe Stock friendly</div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#studio" class="btn-primary">
+            <span>⚡</span> Launch Studio (coming soon)
+          </a>
+          <a href="#how" class="btn-ghost">How it works</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="preview-card">
+          <div class="preview-label">Example prompts</div>
+          <div class="preview-box">
+            <div>1. Futuristic cyber security shield, glowing blue circuits, dark background, no text, no logo</div>
+            <div>2. Minimal pastel gradient background, smooth abstract shapes, clean design, high quality</div>
+            <div>3. Vertical mobile wallpaper, neon purple waves on black, high contrast, no letters</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sections" id="how">
+      <div class="section-card">
+        <div class="section-title">1 · Stock-friendly prompts</div>
+        <div class="section-text">
+          Focus on generic subjects: tech, geometry, nature, light, gradients and
+          abstract scenes. Avoid company names, film characters, real people and
+          sports logos.
+        </div>
+        <div class="section-tags">
+          <span class="tag">No brands</span>
+          <span class="tag">No faces</span>
+          <span class="tag">No movie IP</span>
+        </div>
+      </div>
+
+      <div class="section-card" id="studio">
+        <div class="section-title">2 · Glory Studio (soon)</div>
+        <div class="section-text">
+          The web app will let you choose styles (Realistic, Minimal, 3D, Cartoon),
+          aspect ratios (1:1, 4:5, 16:9, 9:16) and speed vs quality. All powered by
+          custom AI models.
+        </div>
+        <div class="section-tags">
+          <span class="tag">Realistic</span>
+          <span class="tag">Minimal</span>
+          <span class="tag">3D</span>
+          <span class="tag">Cartoon</span>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-title">3 · Manual safety check</div>
+        <div class="section-text">
+          Before uploading to stock sites, review every image. If it contains any
+          logos, brands, text or recognizable people, simply discard that image.
+        </div>
+        <div class="section-tags">
+          <span class="tag">Review first</span>
+          <span class="tag">Safer uploads</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="note-box">
+      <strong>Note:</strong> Glory AI Pro is under active development. This landing page is the official
+      home of the project. The generation studio, user accounts and API access will be added
+      step by step.
+    </div>
+  </main>
+
+  <footer>
+    <span>© 2025 Glory AI Pro. All rights reserved.</span>
+    <span>Designed by G.K.S · Built for stock-safe AI images.</span>
+  </footer>
+</body>
+  </html>
