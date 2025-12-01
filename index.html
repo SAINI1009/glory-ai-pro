@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Glory AI Pro – SD3 Stock & Poster Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Glory AI Pro – SD3 powered AI studio for stock images, posters and thumbnails." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #050712;
+      --bg-soft: #070a16;
+      --bg-elevated: #0d1020;
+      --accent: #3b82f6;
+      --accent-soft: rgba(59, 130, 246, 0.12);
+      --accent-strong: #60a5fa;
+      --border-subtle: rgba(148, 163, 184, 0.25);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --danger: #f97373;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.65);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #020617 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 16px 48px;
+    }
+
+    /* NAVBAR */
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 11px;
+      background: radial-gradient(circle at 20% 0%, #facc15, #fb923c 40%, #1f2937 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.8), 0 16px 30px rgba(15, 23, 42, 0.9);
+      font-size: 18px;
+    }
+
+    .brand-main {
+      font-family: "Poppins", system-ui;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.03em;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-tag {
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.2em;
+      margin-top: 4px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.83rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      transition: all 0.18s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(37, 99, 235, 0.45);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .btn-icon {
+      font-size: 0.95rem;
+    }
+
+    /* LAYOUT GRID */
+
+    .grid-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.1fr);
+      gap: 20px;
+      margin-top: 8px;
+      margin-bottom: 26px;
+    }
+
+    @media (max-width: 880px) {
+      .grid-main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    /* LEFT: HERO */
+
+    .hero {
+      background: radial-gradient(circle at top, #111827 0, #020617 55%);
+      border-radius: var(--radius-lg);
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 5% 0%, rgba(59, 130, 246, 0.25), transparent 60%),
+        radial-gradient(circle at 80% 0%, rgba(168, 85, 247, 0.28), transparent 58%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .pill-soft {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 999px;
+      padding: 3px 10px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+
+    .pill-soft span {
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.16);
+      color: #bbf7d0;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .hero-title {
+      font-family: "Poppins", system-ui;
+      font-weight: 700;
+      font-size: clamp(1.9rem, 3vw, 2.3rem);
+      line-height: 1.08;
+      margin-bottom: 12px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #f97316, #facc15);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 30rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .hero-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-note-badge {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #bfdbfe;
+      background: rgba(15, 23, 42, 0.75);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .stat-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 14px;
+      padding: 9px 10px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .stat-value {
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    .stat-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 18px 14px 16px;
+      }
+
+      .hero-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    /* RIGHT: STUDIO PANEL */
+
+    .studio {
+      background: radial-gradient(circle at top left, #020617 0, #020617 70%);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .studio-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .studio-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .studio-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .studio-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .studio-chip {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .studio-mode-tabs {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 2px;
+      font-size: 0.72rem;
+    }
+
+    .mode-pill {
+      border-radius: 999px;
+      padding: 4px 9px;
+      cursor: pointer;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .mode-pill.active {
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      color: white;
+    }
+
+    .studio-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.95fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 880px) {
+      .studio-body {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* FORM */
+
+    .field-block {
+      margin-bottom: 10px;
+    }
+
+    .field-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      gap: 8px;
+    }
+
+    .field-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .field-hint {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    textarea,
+    select,
+    input[type="text"] {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text-main);
+      font-size: 0.86rem;
+      padding: 9px 10px;
+      outline: none;
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    textarea:focus,
+    select:focus,
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.7);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .chip.active {
+      border-color: var(--accent-strong);
+      background: rgba(37, 99, 235, 0.18);
+      color: #dbeafe;
+    }
+
+    .studio-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .small-note {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .small-note strong {
+      color: #e5e7eb;
+    }
+
+    /* PREVIEW PANE */
+
+    .preview {
+      position: relative;
+      background: radial-gradient(circle at top, #020617 0, #020617 50%, #020617 100%);
+      border-radius: 16px;
+      padding: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      overflow: hidden;
+    }
+
+    .preview-inner {
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      background: radial-gradient(circle at 0% 0%, #1f2937 0, #020617 60%);
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .preview-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.3), transparent 55%),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.15), rgba(15, 23, 42, 0.92));
+      mix-blend-mode: screen;
+      opacity: 0.9;
+    }
+
+    .preview-content {
+      position: relative;
+      padding: 14px 16px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 1;
+    }
+
+    .preview-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .preview-chip {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .preview-generated-text {
+      font-size: 0.78rem;
+      max-width: 17rem;
+      color: #e5e7eb;
+    }
+
+    .preview-glow {
+      position: absolute;
+      inset: 0;
+      opacity: 0.55;
+      background: radial-gradient(circle at 10% 0%, rgba(248, 250, 252, 0.14), transparent 55%),
+        radial-gradient(circle at 80% 100%, rgba(56, 189, 248, 0.4), transparent 58%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .preview-bottom-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .preview-loader {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: #bfdbfe;
+    }
+
+    .preview-loader-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 2px solid rgba(191, 219, 254, 0.5);
+      border-top-color: #bfdbfe;
+      animation: spin 0.85s linear infinite;
+    }
+
+    .preview-status {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #bbf7d0;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* GALLERY & FOOTER */
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
+
+    .section-title span {
+      color: #e5e7eb;
+    }
+
+    .section-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 460px) {
+      .gallery-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .gallery-card {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: radial-gradient(circle at top left, #111827, #020617 70%);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 8px;
+      min-height: 120px;
+    }
+
+    .gallery-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .gallery-name {
+      font-size: 0.86rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .gallery-meta {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .gallery-badge {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #bfdbfe;
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 80% 0%, rgba(129, 140, 248, 0.25), transparent 55%);
+      opacity: 0.85;
+      mix-blend-mode: screen;
+    }
+
+    footer {
+      margin-top: 30px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: #93c5fd;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- NAVBAR -->
+    <header class="nav">
+      <div class="nav-left">
+        <div class="logo-badge">⚡</div>
+        <div>
+          <div class="brand-main">
+            Glory AI Pro
+            <span class="brand-tag">SD3 stock & poster studio</span>
+          </div>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          <span>Safe for commercial use</span>
+        </div>
+        <button class="btn btn-ghost" onclick="scrollToStudio()">
+          <span class="btn-icon">🎛️</span> Studio
+        </button>
+        <button class="btn btn-primary" onclick="scrollToStudio()">
+          <span class="btn-icon">⚡</span> Open Glory Studio
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN GRID -->
+    <main class="grid-main">
+      <!-- HERO / OVERVIEW -->
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-pill-row">
+            <div class="pill-soft">
+              Glory AI Pro
+              <span>SD3 inside</span>
+            </div>
+            <div class="pill-soft">
+              Stock ready • Posters • Thumbnails
+            </div>
+          </div>
+
+          <h1 class="hero-title">
+            Design <span>print-ready</span> AI visuals in a few prompts.
+          </h1>
+
+          <p class="hero-sub">
+            Glory AI Pro focuses on clean layouts, sharp text and perfect aspect ratios – tuned for
+            Adobe Stock, posters, thumbnails and social campaigns.
+          </p>
+
+          <div class="hero-cta-row">
+            <button class="btn btn-primary" onclick="scrollToStudio()">
+              <span class="btn-icon">✨</span>
+              Start generating
+            </button>
+            <button class="btn btn-ghost" onclick="scrollToGallery()">
+              View sample presets
+            </button>
+          </div>
+
+          <div class="hero-note">
+            <span class="hero-note-badge">No watermarks</span>
+            <span>Commercial usage allowed. No brand logos & no copyrighted characters.</span>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-card">
+              <div class="stat-label">Aspect ratios</div>
+              <div class="stat-value">8+</div>
+              <div class="stat-sub">Square, reels, phone, banners</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Modes</div>
+              <div class="stat-value">Stock • Text</div>
+              <div class="stat-sub">Choose clean stock or bold poster</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Quality</div>
+              <div class="stat-value">Hi-res export</div>
+              <div class="stat-sub">Optimised for review & upload</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STUDIO PANEL -->
+      <section class="studio" id="studio">
+        <div class="studio-header">
+          <div class="studio-title-block">
+            <div class="studio-title">
+              Glory Studio
+              <span style="font-size: 0.7rem; color: var(--text-muted)"> • demo UI only (no GPU connected yet)</span>
+            </div>
+            <div class="studio-tag-row">
+              <div class="studio-chip">Model: SD3 Stock</div>
+              <div class="studio-chip">Safe output • No text overlays</div>
+            </div>
+          </div>
+          <div class="studio-mode-tabs">
+            <div class="mode-pill active" data-mode="stock" onclick="switchMode(this)">Stock</div>
+            <div class="mode-pill" data-mode="poster" onclick="switchMode(this)">Poster / Text focus</div>
+          </div>
+        </div>
+
+        <div class="studio-body">
+          <!-- FORM SIDE -->
+          <div>
+            <div class="field-block">
+              <div class="field-label-row">
+                <label class="field-label">Prompt (English best)</label>
+                <span class="field-hint">Tip: describe light, mood & camera angle</span>
+              </div>
+              <textarea
+                id="promptInput"
+                placeholder="Futuristic cyber security shield, glowing blue circuits, dark tech background, ultra sharp, editorial lighting"
+              ></textarea>
+            </div>
+
+            <div class="field-block">
+              <div class="field-label-row">
+                <span class="field-label">Aspect ratio</span>
+                <span class="field-hint" id="ratioHint">For stock & square posts</span>
+              </div>
+              <div class="chip-row" id="ratioChips">
+                <button class="chip active" data-ratio="1:1">1:1 • Square</button>
+                <button class="chip" data-ratio="4:5">4:5 • Portrait</button>
+                <button class="chip" data-ratio="3:4">3:4 • Portrait</button>
+                <button class="chip" data-ratio="2:3">2:3 • Poster</button>
+                <button class="chip" data-ratio="9:16">9:16 • Reels / Story</button>
+                <button class="chip" data-ratio="16:9">16:9 • Wide</button>
+                <button class="chip" data-ratio="21:9">21:9 • Banner</button>
+                <button class="chip" data-ratio="3:1">3:1 • Panorama</button>
+              </div>
+            </div>
+
+            <div class="field-block">
+              <div class="field-label-row">
+                <span class="field-label">Quality</span>
+                <span class="field-hint">Balanced is usually enough</span>
+              </div>
+              <div class="chip-row" id="qualityChips">
+                <button class="chip active" data-quality="fast">Fast</button>
+                <button class="chip" data-quality="balanced">Balanced</button>
+                <button class="chip" data-quality="high">High detail</button>
+              </div>
+            </div>
+
+            <div class="studio-footer">
+              <div class="small-note">
+                <strong>Note:</strong> This is a frontend demo. Real image generation will need your own backend &
+                model key.
+              </div>
+              <button class="btn btn-primary" onclick="fakeGenerate()">
+                <span class="btn-icon">⚡</span> Generate preview
+              </button>
+            </div>
+          </div>
+
+          <!-- PREVIEW SIDE -->
+          <div class="preview">
+            <div class="preview-inner">
+              <div class="preview-content">
+                <div>
+                  <div class="preview-label-row">
+                    <span>Live preview</span>
+                    <span class="preview-chip" id="previewRatioLabel">Aspect • 1:1 Square</span>
+                  </div>
+                  <p class="preview-generated-text" id="previewText">
+                    Your generated image will appear here. Use a clear English prompt describing subject, lighting,
+                    background and style.
+                  </p>
+                </div>
+
+                <div class="preview-bottom-row">
+                  <div class="preview-loader" id="previewLoader">
+                    <div class="preview-loader-dot"></div>
+                    <span>Generating mock preview…</span>
+                  </div>
+                  <div class="preview-status" id="previewStatus">Ready • demo only</div>
+                </div>
+              </div>
+              <div class="preview-overlay"></div>
+              <div class="preview-glow"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- GALLERY / PRESETS -->
+    <section class="section" id="gallery">
+      <div class="section-header">
+        <div>
+          <div class="section-title"><span>Preset ideas</span> • what Glory AI Pro is good at</div>
+          <p class="section-sub">
+            You can copy these concepts as starting prompts. Keep text safe, avoid brands & real people.
+          </p>
+        </div>
+      </div>
+
+      <div class="gallery-grid">
+        <article class="gallery-card">
+          <div class="gallery-overlay"></div>
+          <div class="gallery-badge">Stock</div>
+          <div class="gallery-tag">Cyber • Tech</div>
+          <div class="gallery-name">Glowing security shields & firewalls</div>
+          <div class="gallery-meta">Perfect for cyber articles, fintech & SaaS dashboards.</div>
+        </article>
+
+        <article class="gallery-card">
+          <div class="gallery-overlay"></div>
+          <div class="gallery-badge">Poster</div>
+          <div class="gallery-tag">Typography • Bold</div>
+          <div class="gallery-name">Text-heavy AI posters</div>
+          <div class="gallery-meta">Large, readable text for ads, covers and thumbnails.</div>
+        </article>
+
+        <article class="gallery-card">
+          <div class="gallery-overlay"></div>
+          <div class="gallery-badge">Social</div>
+          <div class="gallery-tag">Reels / Shorts</div>
+          <div class="gallery-name">Vertical storytelling frames</div>
+          <div class="gallery-meta">Cinematic 9:16 scenes for reels and story intros.</div>
+        </article>
+
+        <article class="gallery-card">
+          <div class="gallery-overlay"></div>
+          <div class="gallery-badge">Brand safe</div>
+          <div class="gallery-tag">No logos</div>
+          <div class="gallery-name">Generic devices & dashboards</div>
+          <div class="gallery-meta">Clean UI shots without any real brand elements.</div>
+        </article>
+
+        <article class="gallery-card">
+          <div class="gallery-overlay"></div>
+          <div class="gallery-badge">Print</div>
+          <div class="gallery-tag">Panorama</div>
+          <div class="gallery-name">Wide banners & hero headers</div>
+          <div class="gallery-meta">3:1 & 21:9 scenes for landing pages and billboards.</div>
+        </article>
+
+        <article class="gallery-card">
+          <div class="gallery-overlay"></div>
+          <div class="gallery-badge">Idea</div>
+          <div class="gallery-tag">Experiments</div>
+          <div class="gallery-name">Abstract gradients & light trails</div>
+          <div class="gallery-meta">Backgrounds for UI, presentations and motion graphics.</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>© <span id="year"></span> Glory AI Pro. Built for creators & stock contributors.</div>
+      <div>
+        Demo only – connect your own SDXL / SD3 / Flux or other models on a backend later.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Smooth scroll helpers
+    function scrollToStudio() {
+      document.getElementById("studio").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function scrollToGallery() {
+      document.getElementById("gallery").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Mode switch
+    function switchMode(el) {
+      document.querySelectorAll(".mode-pill").forEach((pill) => pill.classList.remove("active"));
+      el.classList.add("active");
+      const mode = el.dataset.mode;
+      const hint = document.getElementById("ratioHint");
+
+      if (mode === "poster") {
+        hint.textContent = "Posters, thumbnails & bold layouts";
+      } else {
+        hint.textContent = "For stock & square posts";
+      }
+    }
+
+    // Aspect ratio chips
+    const ratioChips = document.querySelectorAll("#ratioChips .chip");
+    const ratioLabel = document.getElementById("previewRatioLabel");
+
+    ratioChips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        ratioChips.forEach((c) => c.classList.remove("active"));
+        chip.classList.add("active");
+        const value = chip.dataset.ratio;
+        ratioLabel.textContent = "Aspect • " + value;
+      });
+    });
+
+    // Quality chips
+    const qualityChips = document.querySelectorAll("#qualityChips .chip");
+    qualityChips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        qualityChips.forEach((c) => c.classList.remove("active"));
+        chip.classList.add("active");
+      });
+    });
+
+    // Fake generate behaviour (frontend only)
+    let generating = false;
+
+    function fakeGenerate() {
+      if (generating) return;
+      generating = true;
+
+      const loader = document.getElementById("previewLoader");
+      const status = document.getElementById("previewStatus");
+      const text = document.getElementById("previewText");
+      const prompt = document.getElementById("promptInput").value.trim();
+
+      loader.style.display = "flex";
+      status.textContent = "Generating… demo only";
+
+      setTimeout(() => {
+        loader.style.display = "none";
+        status.textContent = "Preview updated";
+
+        if (prompt) {
+          text.textContent =
+            "Mock preview based on your prompt: “" +
+            prompt.slice(0, 160) +
+            (prompt.length > 160 ? "…" : "") +
+            "”. Connect a real backend later to generate actual images.";
+        } else {
+          text.textContent =
+            "Mock preview – add a prompt on the left and click Generate to see a description. For real images you’ll plug in your own model API.";
+        }
+
+        generating = false;
+      }, 1300);
+    }
+  </script>
+</body>
+</html>
